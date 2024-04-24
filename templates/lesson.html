@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <base href="{{domain}}">
+    <title>{{title}}</title>
+    <link type="text/css" href="{{url_for('static', filename = 'css/style.css')}}" rel="stylesheet"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/slider.css') }}"/>
+</head>
+<body>
+{% block content -%}
+    {%- block mainmenu -%}
+        <ul class="mainmenu">
+    {% for m in menu -%}
+        <li><a href="{{m.url}}">{{m.name}}</a></li>
+    {% endfor -%}
+        </ul>
+    {% endblock mainmenu -%}
+{% endblock -%}
+<div class="slider">
+  <div class="slider-content">
+    <div class="card-container">
+      {% for term, translation, example in lesson_data %}
+      <div class="card">
+        <div class="front">
+          <p class="term">{{ term }}</p>
+        </div>
+        <div class="back">
+          <p>Перевод: <span class="translation">{{ translation }}</span></p>
+          <p>Пример использования: <span class="example">{{ example }}</span></p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="controls">
+      <button class="prev"><img src="{{ url_for('static', filename='png/left.png')}}" alt="Предыдущая" class="icon2"></button>
+      <button class="next"><img src="{{ url_for('static', filename='png/right.png')}}" alt="Следующая" class="icon2"></button>
+    </div>
+  </div>
+</div>
+{% if current_user.get_role() == 0 %}
+<form method="POST">
+  <label for="message">Вопросы по заданию</label>
+  <textarea id="message" name="message" required></textarea>
+
+  <button type="submit">Отправить</button>
+</form>
+{% endif %}
+{% if current_user.get_role() == 1 %}
+<p><a href="{{ url_for('lessons', user_id=user_id['user_id']) }}" class="back-link">Назад</a></p>
+{% endif %}
+{% if current_user.get_role() == 0 %}
+<p><a href="{{ url_for('lessons', user_id=user_id['user_id']) }}" class="back-link">Назад</a></p>
+{% endif %}
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+{% include 'footer.htm' %}

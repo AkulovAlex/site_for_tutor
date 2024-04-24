@@ -1,0 +1,47 @@
+{% include 'header.htm' %}
+<div class="container">
+    <form method="POST" class="add-post" enctype="multipart/form-data">
+        <label for="article_title">Название статьи:</label><br>
+        <input type="text" id="article_title" name="article_title" required><br><br>
+
+        <label for="article_description">Краткое описание:</label><br>
+        <textarea id="article_description" name="article_description" rows="4" cols="50" required></textarea><br><br>
+
+        <label for="article_image">Изображение для превью:</label><br>
+        <input type="file" id="article_image" name="article_image" accept="image/*" required><br><br>
+
+        <label for="additional_content">Содержание статьи:</label><br>
+        <textarea id="additional_content" name="additional_content" rows="10" cols="50" required></textarea><br><br>
+
+        <label for="additional_images">Дополнительные изображения:</label><br>
+        <input type="file" id="additional_images" name="additional_images" accept="image/*" multiple><br><br>
+
+        <div id="additionalContent"></div>
+
+        <button type="button" class="btn-danger" onclick="addContent()"><img src="{{ url_for('static', filename='png/add.png')}}" alt="Добавить" class="icon"></button>
+        <input type="submit" value="Добавить статью">
+    </form>
+</div>
+
+<script>
+    function addContent() {
+        var additionalContent = document.getElementById("additionalContent");
+        var newDiv = document.createElement("div");
+        newDiv.innerHTML = `
+            <label for="additional_content">Дополнительное содержание:</label><br>
+            <textarea name="additional_content" rows="10" cols="50" required></textarea><br><br>
+
+            <label for="additional_image">Дополнительное изображение:</label><br>
+            <input type="file" name="additional_images" accept="image/*"><br><br>
+            <button type="button" class="btn-danger" onclick="deleteContent(this)"><img src="{{ url_for('static', filename='png/delete.png')}}" alt="Удалить" class="icon"></button><br><br>
+        `;
+        additionalContent.appendChild(newDiv);
+    }
+
+    function deleteContent(btn) {
+        var div = btn.parentNode;
+        div.parentNode.removeChild(div);
+    }
+</script>
+
+{% include 'footer.htm' %}

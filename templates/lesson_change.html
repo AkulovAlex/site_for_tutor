@@ -1,0 +1,45 @@
+{% include 'header.htm' %}
+<div class="container">
+    <form method="POST">
+        <h2>Редактирование задания</h2>
+        <table class="table" id="terms_table">
+            <thead>
+                <tr>
+                    <th scope="col">Термин</th>
+                    <th scope="col">Перевод</th>
+                    <th scope="col">Пример использования</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for term, translation, example in changed_lesson %}
+                <tr>
+                    <td><input type="text" class="form-control" name="term" value="{{ term }}" required></td>
+                    <td><input type="text" class="form-control" name="translation" value="{{ translation }}" required></td>
+                    <td><input type="text" class="form-control" name="example" value="{{ example }}" required></td>
+                    <td><button type="button" class="btn-danger" onclick="deleteRow(this)"><img src="{{ url_for('static', filename='png/delete.png')}}" alt="Удалить" class="icon"></button></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <button type="button" class="btn-danger" onclick="addTerm()"><img src="{{ url_for('static', filename='png/add.png')}}" alt="Добавить" class="icon"></button>
+        <button type="submit" class="btn btn-primary">Сохранить изменения</button>
+    </form>
+</div>
+
+<script>
+    function addTerm() {
+        var table = document.getElementById("terms_table").getElementsByTagName('tbody')[0];
+        var newRow = table.insertRow(table.rows.length); // Вставляем после последней строки
+        newRow.innerHTML = '<td><input type="text" class="form-control" name="term" required></td>' +
+                           '<td><input type="text" class="form-control" name="translation" required></td>' +
+                           '<td><input type="text" class="form-control" name="example" required></td>' +
+                           '<td><button type="button" class="btn-danger" onclick="deleteRow(this)"><img src="{{ url_for('static', filename='png/delete.png')}}" alt="Удалить" class="icon"></button></td>';
+    }
+
+    function deleteRow(btn) {
+        var row = btn.parentNode.parentNode;
+        row.parentNode.removeChild(row);
+    }
+</script>
+
+{% include 'footer.htm' %}

@@ -1,0 +1,8 @@
+{% include 'header.htm' %}
+<div class="container">
+{% for cont in post_cont %}
+        <p  class="post_pict"><img src="{{ url_for('static', filename='pictures/' + cont['post_pic']) }}" alt="Post Image" style="width:700px;"></p>
+        <p class="post_cont">{{ cont['post_cont'] }}</p>
+{% endfor %}
+</div>
+{% include 'footer.htm' %}

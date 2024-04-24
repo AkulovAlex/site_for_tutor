@@ -1,0 +1,35 @@
+{% include 'header.htm' %}
+{% if current_user.get_role() == 1 %}
+<p><a href="{{ url_for('user_profile', user_id=user_id) }}" class="back-link">Назад</a></p>
+{% endif %}
+{% if current_user.get_role() == 0 %}
+<p><a href="{{ url_for('profile') }}" class="back-link">Назад</a></p>
+{% endif %}
+<div class="container">
+{% for lesson in lessons %}
+<div class="lessons_info">
+    <div>
+        <p><a href="{{ url_for('lesson', lesson_id=lesson['id']) }}" class="lesson_name">{{ lesson['lesson_topic'] }}</a></p>
+    </div>
+    {% if current_user.get_role() == 1 %}
+    <div>
+        <p><a href="{{ url_for('lesson_delite', lesson_id=lesson['id']) }}" class=""><img src="{{ url_for('static', filename='png/delete.png')}}" alt="Удалить" class="icon"></a></p>
+        <p><a href="{{ url_for('lesson_change', lesson_id=lesson['id']) }}" class=""><img src="{{ url_for('static', filename='png/edit.png')}}" alt="Изменить" class="icon"></a></p>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+</div>
+<script>
+    window.onscroll = function() {scrollFunction()};
+
+    function scrollFunction() {
+        var backLink = document.querySelector('.back-link');
+        if (window.pageYOffset > 50) {
+            backLink.classList.add('fixed');
+        } else {
+            backLink.classList.remove('fixed');
+        }
+    }
+</script>
+{% include 'footer.htm' %}

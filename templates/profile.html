@@ -1,0 +1,13 @@
+{% include 'header.htm' %}
+<p><a href="{{ url_for('feedback') }}" class="back-link">Вопросы пользователей</a></p>
+<div class="container">
+<p class="h">Список пользователей</p>
+{% for user in users %}
+<p class="user-name">
+<a href="{{ url_for('user_profile', user_id=user['id']) }}" class="user_name">{{ user['name'] }}</a>
+</p>            
+{% endfor %}
+</div>
+<p><a href="{{ url_for('add_post') }}" class="add-link">Добавить статью</a></p>
+<p><a href="{{url_for('logout')}}"  class="lg-out">Выйти из профиля</a>
+{% include 'footer.htm' %}

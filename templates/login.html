@@ -1,0 +1,16 @@
+{% include 'header.htm' %}
+<div class="reg-form">
+    {% for cat, msg in get_flashed_messages(True) %}
+    <div class="flash {{cat}}">{{msg}}</div>
+    {% endfor %}
+{% block content %}
+    <form action="/login" method="post" class="form-login">
+    <p><label></label><input type="text" name="username" placeholder="Логин" value="" required />
+    <p><label></label><input type="text" name="psw" placeholder="Пароль" value="" required />
+    <p><input type="checkbox" name="rmember"/> Запомнить меня
+    <p><input type="submit" value="Войти" />
+    <p><a href="{{url_for('regestration')}}" class="logout-link">Загрегестрироваться</a>
+    </form>
+{% endblock %}
+</div>
+{% include 'footer.htm' %}
