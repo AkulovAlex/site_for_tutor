@@ -1,8 +1,5 @@
 {% include 'header.htm' %}
 <div class="reg-form">
-    {% for cat, msg in get_flashed_messages(True) %}
-    <div class="flash {{cat}}">{{msg}}</div>
-    {% endfor %}
 {% block content %}
     <form action="/login" method="post" class="form-login">
     <p><label></label><input type="text" name="username" placeholder="Логин" value="" required />

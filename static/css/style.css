@@ -56,7 +56,6 @@ input[type='submit'] {
 .reg-form {
     position: relative;
     margin-top: 40px;
-    margin-left: 10%;
 }
 
 .flash.error{
