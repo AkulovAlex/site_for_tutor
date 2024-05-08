@@ -246,6 +246,14 @@ def post(post_id):
     return render_template('post.html', post_cont=post_cont, menu=menu)
 
 
+@app.route("/user_del/<int:user_id>")
+@login_required
+def user_del(user_id):
+    dbase.del_user(user_id)
+    return redirect(url_for('profile'))
+
+
+
 
 @app.errorhandler(404)
 def page_not_found(error):
@@ -256,6 +264,10 @@ def page_not_found(error):
 def page_not_found(error):
     return render_template('page403.html', title="У вас недостаточно прав", menu=menu), 403
 
+@app.errorhandler(401)
+def page_not_found(error):
+    return render_template('401.html', title="Нужна авторизация", menu=menu), 401
+
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)

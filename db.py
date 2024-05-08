@@ -238,6 +238,17 @@ class FDataBase:
 
         return False
 
+    def del_user(self, user_id):
+        try:
+            self.__cur.execute("DELETE FROM users WHERE id = ?", (user_id,))
+            self.__cur.execute("DELETE FROM lessons WHERE user_id = ?", (user_id,))
+            self.__db.commit()
+            return True
+        except sqlite3.Error as e:
+            print("Ошибка удаления данных из БД: " + str(e))
+
+        return False
+
 @app.teardown_appcontext
 def close_db():
     if hasattr(g, 'link_db'):

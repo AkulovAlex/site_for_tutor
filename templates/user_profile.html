@@ -10,8 +10,9 @@
 <p class="user-name">Имя: {{ user_info['name'] }}</p>
 <p class="user-name">Логин: {{ user_info['username'] }}</p>
 {% if current_user.get_role() == 1 %}
-<p class="user-name"><a href="{{ url_for('add_lesson', user_id=user_info['id']) }}" class="btn-primary">Добавить урок</a></p>
-<p class="user-name"><a href="{{ url_for('lessons', user_id=user_info['id']) }}" class="btn-primary">Задания пользователя</a></p>
+    <p class="user-name"><a href="{{ url_for('add_lesson', user_id=user_info['id']) }}" class="btn-primary">Добавить урок</a></p>
+    <p class="user-name"><a href="{{ url_for('lessons', user_id=user_info['id']) }}" class="btn-primary">Задания пользователя</a></p>
+    <p class="user-name"><a href="{{ url_for('user_del', user_id=user_info['id']) }}" class="btn-primary">Удалить пользователя</a></p>
 {% endif %}
 {% if current_user.get_role() == 0 %}
 <p class="post_summery"><a href="{{ url_for('lessons', user_id=user_info['id']) }}" class="btn-primary">Мои задания</a></p>
